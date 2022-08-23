@@ -115,6 +115,10 @@ public extension UIBarItem {
 		@objc public var button: Button = Button()
 		@objc public var background: Background = Background()
 		@objc public var backgroundViewColor: UIColor = .clear
+		@objc public var shadowColor: UIColor = .clear
+		@objc public var shadowOffset: CGSize = CGSize(width: 0.0, height: 0.0)
+		@objc public var shadowRadius: CGFloat = 0.0
+		@objc public var shadowOpacity: Float = 0.0
 	}
 	
 	@objc public class Animating: NSObject {
@@ -263,6 +267,7 @@ open class MKToolTip: UIView {
 		self.delegate = delegate
 		super.init(frame: .zero)
 		self.backgroundColor = .clear
+		self.addShadowOnView()
 	}
 	
 	@available(*, unavailable)
@@ -528,6 +533,14 @@ open class MKToolTip: UIView {
 			button!.draw(in: buttonRect, withAttributes: [NSAttributedString.Key.font : preferences.drawing.button.font, NSAttributedString.Key.foregroundColor : preferences.drawing.button.color, NSAttributedString.Key.paragraphStyle : paragraphStyle])
 		}
 		
+	}
+	
+	private func addShadowOnView() {
+		self.clipsToBounds = false
+		self.layer.shadowColor = preferences.drawing.shadowColor.cgColor
+		self.layer.shadowRadius = preferences.drawing.shadowRadius
+		self.layer.shadowOpacity = preferences.drawing.shadowOpacity
+		self.layer.shadowOffset = preferences.drawing.shadowOffset
 	}
 }
 
