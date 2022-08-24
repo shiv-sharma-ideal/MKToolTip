@@ -71,7 +71,7 @@ public extension UIBarItem {
 			@objc public var inset: CGFloat = 15
 			@objc public var spacing: CGFloat = 5
 			@objc public var cornerRadius: CGFloat = 5
-			@objc public var maxWidth: CGFloat = 210
+			@objc public var maxWidth: CGFloat = (UIScreen.main.bounds.width - 54)
 			@objc public var color: UIColor = UIColor.clear {
 				didSet {
 					gradientColors = [color]
@@ -298,6 +298,7 @@ open class MKToolTip: UIView {
 			preferences.drawing.arrow.tip = CGPoint(x: refViewFrame.center.x - xOrigin, y: 0)
 			bubbleFrame = CGRect(x: spacingForBorder, y: preferences.drawing.arrow.size.height + spacingForBorder, width: bubbleSize.width, height: bubbleSize.height)
 		case .right:
+			preferences.drawing.bubble.maxWidth = refViewFrame.x - 24
 			xOrigin = refViewFrame.x - contentSize.width
 			yOrigin = refViewFrame.center.y - contentSize.height / 2
 			preferences.drawing.arrow.tip = CGPoint(x: bubbleSize.width + preferences.drawing.arrow.size.height + spacingForBorder, y: refViewFrame.center.y - yOrigin)
@@ -582,5 +583,6 @@ private class RadialGradientBackgroundLayer: CALayer {
 		ctx.restoreGState()
 	}
 }
+
 
 
